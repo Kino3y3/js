@@ -63,3 +63,24 @@ const reduce = curry((f, acc, iter) => {
 	}
 	return acc;
 });
+
+const find = curry((f, iter) => go(
+	iter,
+	L.filter(f),
+	take(1),
+	([a]) => a));
+
+const go = (...args) => reduce((a, f) => f(a), args);
+
+const pipe = (f, ...fs) => (...as) => go(f(...as), ...fs);
+
+var add = (a, b) => a + b;
+
+const range = l => {
+	let i = -1;
+	let res = [];
+	while (++i < l) {
+		res.push(i);
+	}
+	return res;
+};
